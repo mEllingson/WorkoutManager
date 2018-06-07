@@ -18,6 +18,8 @@ export class WorkoutComponent implements OnInit {
   }
 
   getWorkout(): void {
-    this.workout = this.workoutService.getWorkout();
+    this.workoutService
+      .getWorkout()
+      .subscribe(workout => (this.workout = workout));
   }
 }

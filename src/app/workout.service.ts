@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+
 import { Exercise } from './Exercise';
 import { ExerciseSet } from './ExerciseSet';
 import { SetCalculator } from './setCalculator';
@@ -10,7 +12,7 @@ import { ExerciseSetLayout } from './ExerciseSetLayout';
 export class WorkoutService {
   constructor() {}
 
-  getWorkout(): Exercise[] {
+  getWorkout(): Observable<Exercise[]> {
     const calc = new SetCalculator();
 
     const squatLayouts: ExerciseSetLayout[] = [
@@ -40,8 +42,9 @@ export class WorkoutService {
       sets: calc.getSets(315, deadliftLayouts)
     };
 
-    const workout: Exercise[] = [exercise1, exercise2];
+    const exercise3 = new Exercise('Bench Press', 225, squatLayouts);
+    const workout: Exercise[] = [exercise1, exercise2, exercise3];
 
-    return workout;
+    return of(workout);
   }
 }
