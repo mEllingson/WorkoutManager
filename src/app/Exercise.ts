@@ -1,5 +1,5 @@
-import { ExerciseSet } from './ExerciseSet';
-import { ExerciseSetLayout } from './ExerciseSetLayout';
+import { ExerciseSet } from './exercise-set';
+import { ExerciseSetLayout } from './exercise-set-layout';
 import { SetCalculator } from './setCalculator';
 
 export class Exercise {

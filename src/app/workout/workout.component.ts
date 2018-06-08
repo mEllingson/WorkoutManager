@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WorkoutService } from '../workout.service';
-import { Exercise } from '../Exercise';
-import { ExerciseSet } from '../ExerciseSet';
+import { Exercise } from '../exercise';
+import { ExerciseSet } from '../exercise-set';
 
 @Component({
   selector: 'app-workout',

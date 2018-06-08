@@ -1,13 +1,3 @@
 <div *ngFor="let movement of workout">
-  <h4>{{movement.exerciseName}} - ({{movement.trainingMax}} TM)</h4>
-  <div>
-    <label>Training Max:
-      <input [(ngModel)]="movement.trainingMax" placeholder="name">
-    </label>
-  </div>
-  <ul>
-    <li *ngFor="let set of movement.sets">
-      {{set.reps}} x {{set.weight}}
-    </li>
-  </ul>
+  <app-exercise [exercise]="movement"></app-exercise>
 </div>

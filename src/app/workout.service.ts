@@ -1,50 +1,40 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { Exercise } from './Exercise';
-import { ExerciseSet } from './ExerciseSet';
+import { Exercise } from './exercise';
+
 import { SetCalculator } from './setCalculator';
-import { ExerciseSetLayout } from './ExerciseSetLayout';
+import { ExerciseSetLayout } from './exercise-set-layout';
+import { WorkoutLayoutService } from './workout-layout.service';
+import { ExerciseLayout } from './exercise-layout';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkoutService {
-  constructor() {}
+  workoutLayout: ExerciseLayout[];
+
+  constructor(private workoutLayoutService: WorkoutLayoutService) {}
 
   getWorkout(): Observable<Exercise[]> {
     const calc = new SetCalculator();
 
-    const squatLayouts: ExerciseSetLayout[] = [
-      new ExerciseSetLayout(5, 65),
-      new ExerciseSetLayout(5, 70),
-      new ExerciseSetLayout(5, 75),
-      new ExerciseSetLayout(3, 80),
-      new ExerciseSetLayout(1, 85)
-    ];
-    const exercise1: Exercise = {
-      exerciseName: 'Squats',
-      trainingMax: 275,
-      sets: calc.getSets(275, squatLayouts)
-    };
-
-    const deadliftLayouts: ExerciseSetLayout[] = [
-      new ExerciseSetLayout(5, 50),
-      new ExerciseSetLayout(5, 60),
-      new ExerciseSetLayout(5, 70),
-      new ExerciseSetLayout(3, 80),
-      new ExerciseSetLayout(1, 90)
-    ];
-
-    const exercise2: Exercise = {
-      exerciseName: 'Deadlift',
-      trainingMax: 315,
-      sets: calc.getSets(315, deadliftLayouts)
-    };
-
-    const exercise3 = new Exercise('Bench Press', 225, squatLayouts);
-    const workout: Exercise[] = [exercise1, exercise2, exercise3];
-
+    this.getLayout();
+    const workout: Exercise[] = [];
+    this.workoutLayout.forEach(exLayout => {
+      const exercise: Exercise = {
+        exerciseName: exLayout.exerciseName,
+        trainingMax: exLayout.trainingMax,
+        sets: calc.getSets(exLayout.trainingMax, exLayout.exerciseSetLayout)
+      };
+      workout.push(exercise);
+    });
     return of(workout);
+  }
+
+  private getLayout(): void {
+    this.workoutLayoutService
+      .getLayout()
+      .subscribe(workout => (this.workoutLayout = workout));
   }
 }

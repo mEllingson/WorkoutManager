@@ -1,5 +1,5 @@
-import { ExerciseSet } from './ExerciseSet';
-import { ExerciseSetLayout } from './ExerciseSetLayout';
+import { ExerciseSet } from './exercise-set';
+import { ExerciseSetLayout } from './exercise-set-layout';
 
 export class SetCalculator {
   getSets(trainingMax: number, percentages: ExerciseSetLayout[]) {
