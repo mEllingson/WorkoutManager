@@ -2,16 +2,19 @@ import { ExerciseSet } from './exercise-set';
 import { ExerciseSetLayout } from './exercise-set-layout';
 
 export class SetCalculator {
-  getSets(trainingMax: number, percentages: ExerciseSetLayout[]) {
+  getSets(trainingMax: number, percentages?: ExerciseSetLayout[]) {
     const sets: ExerciseSet[] = [];
-    percentages.forEach(setLayout => {
-      const set: ExerciseSet = {
-        reps: setLayout.reps,
-        weight: this.calculateWeight(trainingMax, setLayout.percentage)
-      };
-      sets.push(set);
-    });
 
+    if (percentages != null) {
+      percentages.forEach(setLayout => {
+        const set: ExerciseSet = {
+          reps: setLayout.reps,
+          weight: this.calculateWeight(trainingMax, setLayout.percentage),
+          percentOfTrainingMax: setLayout.percentage
+        };
+        sets.push(set);
+      });
+    }
     return sets;
   }
 
