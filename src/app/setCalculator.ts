@@ -14,7 +14,9 @@ export class SetCalculator {
         };
         sets.push(set);
       });
+    } else {
     }
+
     return sets;
   }
 
